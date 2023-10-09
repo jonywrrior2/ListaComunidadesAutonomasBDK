@@ -22,4 +22,6 @@ class Adapter(private val comunidadLista:List<Comunidad>,
         val item=comunidadLista[position]
         holder.render(item,onClickListener)
     }
+
+
 }

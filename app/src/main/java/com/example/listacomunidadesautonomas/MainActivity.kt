@@ -1,5 +1,6 @@
 package com.example.listacomunidadesautonomas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,7 +15,7 @@ import com.example.listacomunidadesautonomas.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
@@ -23,11 +24,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvComunidad.adapter=Adapter(listaComunidades){ comunidad ->
             onItemSelected(comunidad)
         }
-        //esto deja el tamaño del viewHolder fijo y la segunda linea le añade animacion
+
         binding.rvComunidad.setHasFixedSize(true)
         binding.rvComunidad.itemAnimator=DefaultItemAnimator()
-        /* val decoration = DividerItemDecoration(this,RecyclerView.VERTICAL)
-        binding.rvFrutas.addItemDecoration(decoration) */ //Esto es para separar con una linea en caso de no poner un cardView
+
 
     }
     private fun onItemSelected(comunidad:Comunidad){
@@ -39,4 +39,17 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-}
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.opcionLimpiar ->{
+                ListaComunidades.listaComunidades.clear()
+                binding.rvComunidad.adapter?.notifyDataSetChanged()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
+    }
