@@ -18,5 +18,6 @@
     <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
-    <string name="recargar" />
+    <string name="recargar">Recargar</string>
+
 </resources>
