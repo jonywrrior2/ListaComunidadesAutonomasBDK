@@ -16,6 +16,10 @@
         android:id="@+id/opcionRecargar"
         app:showAsAction="ifRoom"
         />
+        <item android:title="@string/añadir"
+            android:id="@+id/opcionAñadir"
+            app:showAsAction="ifRoom"
+            />
     </menu>
 </item>
 
