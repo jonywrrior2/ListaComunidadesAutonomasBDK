@@ -23,5 +23,6 @@ class ListaComunidades {
             Comunidad("Pais Vasco",R.drawable.paisvasco),
             Comunidad("Valencia",R.drawable.valencia),
             )
+        var nuevaListaComunidad = listaComunidades.toList().toMutableList()
     }
 }

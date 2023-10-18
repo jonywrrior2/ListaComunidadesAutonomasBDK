@@ -1,13 +1,17 @@
 package com.example.listacomunidadesautonomas
 
+import android.app.Activity
+import android.app.Instrumentation.ActivityResult
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,26 +20,46 @@ import com.example.listacomunidadesautonomas.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(){
-
+    private lateinit var intentLaunch: ActivityResultLauncher<Intent>
+    private var nombreComunidad ="Sin nombre"
     private lateinit var binding: ActivityMainBinding
-    private lateinit var  datosCopia:List <Comunidad>
+    private var id: Int = 0
+    private lateinit var adapter:Adapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvComunidad.layoutManager=LinearLayoutManager(this)
-        binding.rvComunidad.adapter=Adapter(listaComunidades){ comunidad ->
-            onItemSelected(comunidad)
-        }
-
         binding.rvComunidad.setHasFixedSize(true)
         binding.rvComunidad.itemAnimator=DefaultItemAnimator()
+        binding.rvComunidad.adapter = Adapter(ListaComunidades.listaComunidades){
+            comunidad ->  onItemSelected(comunidad)
+        }
+        val txtCambioNombre = findViewById<TextView>(R.id.txtCambioNombre)
+        intentLaunch = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult())
+        {
+            result ->
+            if(result.resultCode == Activity.RESULT_OK){
+                nombreComunidad = result.data?.extras?.getString("nombre").toString()
+                id = result.data?.extras?.getInt("id") as Int
+                ListaComunidades.listaComunidades[id].nombre = nombreComunidad
+                adapter = Adapter(ListaComunidades.listaComunidades){
+                        comunidad ->  onItemSelected(comunidad)
+                }
+                adapter.notifyItemChanged(id)
+                binding.rvComunidad.adapter=adapter
 
-    datosCopia = ListaComunidades.listaComunidades.toList()
+            }
+        }
+
     }
-    private fun onItemSelected(comunidad:Comunidad){
-        Toast.makeText(this,"Has pulsado sobre ${comunidad.nombre}",Toast.LENGTH_SHORT).show()
+
+    private fun onItemSelected(comunidad: Comunidad) {
+        Toast.makeText(this, "Soy de ${comunidad.nombre}", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,18 +69,18 @@ class MainActivity : AppCompatActivity(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.opcionLimpiar ->{
-                ListaComunidades.listaComunidades.clear()
-                binding.rvComunidad.adapter?.notifyDataSetChanged()
-                true
-            }
-            R.id.opcionRecargar -> {
-                ListaComunidades.listaComunidades.addAll(datosCopia)
-                binding.rvComunidad.adapter?.notifyDataSetChanged()
-                true
-            }
             R.id.opcionAñadir ->{
                 addComunidad()
+                true
+            }
+            R.id.opcionRecargar->{
+                crearListaNueva()
+                binding.rvComunidad.adapter?.notifyDataSetChanged()
+                true
+            }
+            R.id.opcionBorrar->{
+                ListaComunidades.listaComunidades.clear()
+                binding.rvComunidad.adapter?.notifyDataSetChanged()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,11 +110,17 @@ class MainActivity : AppCompatActivity(){
                             binding.rvComunidad.adapter?.notifyItemRemoved(item.groupId)
                             binding.rvComunidad.adapter?.notifyItemRangeChanged(item.groupId, listaComunidades.size)
                             binding.rvComunidad.adapter = Adapter(listaComunidades){comunidad ->
-                                onItemSelected(comunidad)
 
                             }
                         }.create()
                 alert.show()
+            }
+            1 ->{
+                miIntent = Intent (this, MainActivity2::class.java)
+                miIntent.putExtra("nombreComunidad", ListaComunidades.listaComunidades[item.groupId].nombre)
+                miIntent.putExtra("id", item.groupId)
+                miIntent.putExtra("imagen", ListaComunidades.listaComunidades[item.groupId].imagen)
+                intentLaunch.launch(miIntent)
             }
             else -> return super.onContextItemSelected(item)
         }
@@ -101,4 +131,10 @@ class MainActivity : AppCompatActivity(){
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
+    private fun crearListaNueva(){
+        ListaComunidades.listaComunidades.clear()
+        ListaComunidades.listaComunidades.addAll(ListaComunidades.nuevaListaComunidad)
     }
+
+
+}

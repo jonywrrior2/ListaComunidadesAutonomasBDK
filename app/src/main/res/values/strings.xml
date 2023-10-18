@@ -19,6 +19,7 @@
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
     <string name="recargar">Recargar</string>
-    <string name="añadir" />
+    <string name="añadir">Añadir</string>
+    <string name="borrar">Borrar</string>
 
 </resources>
