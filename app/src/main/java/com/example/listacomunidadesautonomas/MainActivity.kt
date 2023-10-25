@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.listacomunidadesautonomas.ListaComunidades.Companion.listaComunidades
 import com.example.listacomunidadesautonomas.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
@@ -25,12 +26,15 @@ class MainActivity : AppCompatActivity(){
     private lateinit var binding: ActivityMainBinding
     private var id: Int = 0
     private lateinit var adapter:Adapter
+    private lateinit var miDAO: ComunidadDAO
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        miDAO= ComunidadDAO()
+        listaComunidades=miDAO.cargarLista(this)
         binding.rvComunidad.layoutManager=LinearLayoutManager(this)
         binding.rvComunidad.setHasFixedSize(true)
         binding.rvComunidad.itemAnimator=DefaultItemAnimator()
@@ -87,7 +91,8 @@ class MainActivity : AppCompatActivity(){
         }
     }
     private fun addComunidad(){
-        listaComunidades.add(listaComunidades.size, Comunidad("Nueva Comunidad ${listaComunidades.size}",
+        listaComunidades.add(listaComunidades.size, Comunidad(
+            listaComunidades.size+1,"Nueva Comunidad ${listaComunidades.size}",
             R.drawable.andalucia))
             binding.rvComunidad.adapter?.notifyItemInserted (listaComunidades.size)
             binding.rvComunidad.layoutManager?.scrollToPosition(listaComunidades.size)

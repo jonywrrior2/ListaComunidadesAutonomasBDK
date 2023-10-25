@@ -2,26 +2,26 @@ package com.example.listacomunidadesautonomas
 
 class ListaComunidades {
     companion object{
-        val listaComunidades = mutableListOf(
-            Comunidad("Andalucia",R.drawable.andalucia),
-            Comunidad("Aragón",R.drawable.aragon),
-            Comunidad("Asturias",R.drawable.asturias),
-            Comunidad("Baleares",R.drawable.baleares),
-            Comunidad("Canarias",R.drawable.canarias),
-            Comunidad("Cantabria",R.drawable.cantabria),
-            Comunidad("Castilla y Leon",R.drawable.castillaleon),
-            Comunidad("Castilla La Mancha",R.drawable.castillamancha),
-            Comunidad("Cataluña",R.drawable.catalunya),
-            Comunidad("Ceuta",R.drawable.ceuta),
-            Comunidad("Extremadura",R.drawable.extremadura),
-            Comunidad("Galicia",R.drawable.galicia),
-            Comunidad("La Rioja",R.drawable.larioja),
-            Comunidad("Madrid",R.drawable.madrid),
-            Comunidad("Melilla",R.drawable.melilla),
-            Comunidad("Murcia",R.drawable.murcia),
-            Comunidad("Navarra",R.drawable.navarra),
-            Comunidad("Pais Vasco",R.drawable.paisvasco),
-            Comunidad("Valencia",R.drawable.valencia),
+        var listaComunidades = mutableListOf(
+            Comunidad(1,"Andalucia",R.drawable.andalucia),
+            Comunidad(2,"Aragón",R.drawable.aragon),
+            Comunidad(3,"Asturias",R.drawable.asturias),
+            Comunidad(4,"Baleares",R.drawable.baleares),
+            Comunidad(5,"Canarias",R.drawable.canarias),
+            Comunidad(6,"Cantabria",R.drawable.cantabria),
+            Comunidad(7,"Castilla y Leon",R.drawable.castillaleon),
+            Comunidad(8,"Castilla La Mancha",R.drawable.castillamancha),
+            Comunidad(9,"Cataluña",R.drawable.catalunya),
+            Comunidad(10,"Ceuta",R.drawable.ceuta),
+            Comunidad(11,"Extremadura",R.drawable.extremadura),
+            Comunidad(12,"Galicia",R.drawable.galicia),
+            Comunidad(13,"La Rioja",R.drawable.larioja),
+            Comunidad(14,"Madrid",R.drawable.madrid),
+            Comunidad(15,"Melilla",R.drawable.melilla),
+            Comunidad(16,"Murcia",R.drawable.murcia),
+            Comunidad(17,"Navarra",R.drawable.navarra),
+            Comunidad(18,"Pais Vasco",R.drawable.paisvasco),
+            Comunidad(19,"Valencia",R.drawable.valencia),
             )
         var nuevaListaComunidad = listaComunidades.toList().toMutableList()
     }
