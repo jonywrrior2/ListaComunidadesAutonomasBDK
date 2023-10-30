@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(){
                         comunidad ->  onItemSelected(comunidad)
                 }
                 adapter.notifyItemChanged(id)
+                miDAO.actualizarBBDD(this, listaComunidades[id])
                 binding.rvComunidad.adapter=adapter
 
             }
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity(){
                 true
             }
             R.id.opcionRecargar->{
-                crearListaNueva()
+                listaComunidades
                 binding.rvComunidad.adapter?.notifyDataSetChanged()
                 true
             }
