@@ -21,5 +21,10 @@
     <string name="recargar">Recargar</string>
     <string name="añadir">Añadir</string>
     <string name="borrar">Borrar</string>
+    <string name="comunidades">comunidades</string>
+    <string name="email">email\n</string>
+    <string name="password">password</string>
+    <string name="recordar">recordar</string>
+    <string name="login">login</string>
 
 </resources>

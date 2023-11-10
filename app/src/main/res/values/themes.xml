@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.ListaComunidadesAutonomas" parent="Base.Theme.ListaComunidadesAutonomas" />
+    <style name="Theme.App.Starting" parent="Base.Theme.ListaComunidadesAutonomas">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/spain</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.ListaComunidadesAutonomas</item>
+    </style>
 </resources>
