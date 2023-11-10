@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -34,13 +33,6 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        this.onBackPressedDispatcher.addCallback(this , object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                finish()
-            }
-        })
-
         miDAO= ComunidadDAO()
         listaComunidades=miDAO.cargarLista(this)
         binding.rvComunidad.layoutManager=LinearLayoutManager(this)
@@ -87,8 +79,7 @@ class MainActivity : AppCompatActivity(){
                 true
             }
             R.id.opcionRecargar->{
-               //listaComunidades
-                crearListaNueva()
+                listaComunidades
                 binding.rvComunidad.adapter?.notifyDataSetChanged()
                 true
             }
@@ -146,12 +137,10 @@ class MainActivity : AppCompatActivity(){
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun crearListaNueva(){
-       // ListaComunidades.listaComunidades.clear()
-        //ListaComunidades.listaComunidades.addAll(ListaComunidades.nuevaListaComunidad)
-        listaComunidades.clear()
-        listaComunidades.addAll(ListaComunidades.nuevaListaComunidad)
-    }
+    /*private fun crearListaNueva(){
+        ListaComunidades.listaComunidades.clear()
+        ListaComunidades.listaComunidades.addAll(ListaComunidades.nuevaListaComunidad)
+    } */
 
 
 }
